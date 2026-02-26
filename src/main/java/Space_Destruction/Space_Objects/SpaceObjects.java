@@ -25,6 +25,7 @@ public abstract class SpaceObjects {
     public int getVoidSize(){
         return voidSize;
     }
+    public String toString(){return "?";}
 
 
 

@@ -25,5 +25,6 @@ public class Planetoid extends SpaceObjects {
 
             // Change color to indicate destruction?
             color = Color.RED;
+        }
     }
 }
