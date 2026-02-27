@@ -6,5 +6,4 @@ public class Planet extends Planetoid {
         super(x, y, radius, voidSize, distanceFromStar);
 
     }
-    }
 }
