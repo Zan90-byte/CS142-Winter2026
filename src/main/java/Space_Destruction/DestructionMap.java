@@ -12,6 +12,7 @@ public class DestructionMap {
     private List<SpaceObjects> objects;
     private List<SpaceVoid> voids;
 
+    //constructor
     public DestructionMap(int scale, int numPlanets, int asteroidFields){
         this.scale = scale;
         objects = new ArrayList<SpaceObjects>();
@@ -19,6 +20,7 @@ public class DestructionMap {
         fill(numPlanets, asteroidFields);
     }
 
+    //fills lists
     private void fill(int numPlanets, int asteroidFields){
         int p = 0;
         int a = 0;
@@ -49,6 +51,7 @@ public class DestructionMap {
         }
     }
 
+    //makes a field of asteroids around a specific orbit (radius around sun)
     private void makeAstField(int orbit, int total){
         int numAsteroids = new Random().nextInt(3) + 1;
         List<Asteroid> field = new ArrayList<Asteroid>(numAsteroids);
@@ -60,6 +63,7 @@ public class DestructionMap {
         }
     }
 
+    //gives asteroid to simplify makeAstField()
     private Asteroid makeAsteroid(int orbit){
         int x = new Random().nextInt(orbit+1);
         int y = (int) Math.sqrt(((orbit*orbit) - (x*x)) );
@@ -73,6 +77,7 @@ public class DestructionMap {
         return new Asteroid(x, y, orbit);
     }
 
+    //use to make sure no overlapping asteroids
     private boolean checkField(List<Asteroid> field, Asteroid temp){
         for (int i = 0; i < field.size(); i++){
             Asteroid asteroid = field.get(i);
@@ -85,6 +90,7 @@ public class DestructionMap {
 
     // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 
+    //update voids than use that to destroy space objects
     public void update(){
         //update all voids in list of voids
         for (int i = 0; i < voids.size(); i++){
@@ -107,6 +113,8 @@ public class DestructionMap {
     }
 
     // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+
+    //get lists of space objects and list of spaceVoids
 
     public List<SpaceObjects> getObjects(){
         return objects;
