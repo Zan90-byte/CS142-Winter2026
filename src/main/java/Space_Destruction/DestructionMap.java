@@ -28,22 +28,35 @@ public class DestructionMap {
             Planetoid temp;
             if (a >= asteroidFields){
                 //if already exceeded num of asteroid fields
-//                temp = new Planet(orbit);
+//                objects.add(new Planet(orbit));;
                 p ++;
             } else if (p >= numPlanets){
                 //if already exceeded num of planets
-                temp = makeAsteroid(orbit);
+                int fieldSize = new Random().nextInt(4) + 1;
+                makeAstField(orbit, fieldSize);
                 a ++;
             } else if (new Random().nextBoolean()) {
                 //randomly choose between making a planet or asteroid field
-//                temp = new Planet(orbit);
-                p++;
+//                objects.add(new Planet(orbit));;
+                p ++;
             } else {
                 //add asteroids
+                int fieldSize = new Random().nextInt(4) + 1;
+                makeAstField(orbit, fieldSize);
+                a ++;
+            }
+            orbit += 20 + new Random().nextInt(6);
+        }
+    }
+
+    private void makeAstField(int orbit, int total){
+        int numAsteroids = new Random().nextInt(3) + 1;
+        List<Asteroid> field = new ArrayList<Asteroid>(numAsteroids);
+        for (int i = 0; i < numAsteroids; i++){
+            Asteroid temp = makeAsteroid(orbit);
+            while (checkField(field, temp)){
                 temp = makeAsteroid(orbit);
             }
-//            objects.add(temp);
-            orbit += 20 + new Random().nextInt(6);
         }
     }
 
@@ -53,6 +66,17 @@ public class DestructionMap {
         return new Asteroid(x, y, orbit);
     }
 
+    private boolean checkField(List<Asteroid> field, Asteroid temp){
+        for (int i = 0; i < field.size(); i++){
+            Asteroid asteroid = field.get(i);
+            if (asteroid.getDistanceTo(temp.getX(), temp.getY()) <= (temp.getR())+asteroid.getR() + 5){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 
     public void update(){
         //update all voids in list of voids
@@ -73,9 +97,9 @@ public class DestructionMap {
                 }
             }
         }
-
-
     }
+
+    // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 
     public List<SpaceObjects> getObjects(){
         return objects;
@@ -84,6 +108,8 @@ public class DestructionMap {
     public List<SpaceVoid> getVoids(){
         return voids;
     }
+
+    // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 
     public void start(){
         //adds initial void at one randomly selected Planetoid, destroying that Planetoid in precess
