@@ -63,6 +63,13 @@ public class DestructionMap {
     private Asteroid makeAsteroid(int orbit){
         int x = new Random().nextInt(orbit+1);
         int y = (int) Math.sqrt(((orbit*orbit) - (x*x)) );
+        //randomizes the quadrant
+        if (new Random().nextBoolean()){
+            x *= -1;
+        }
+        if (new Random().nextBoolean()){
+            y *= -1;
+        }
         return new Asteroid(x, y, orbit);
     }
 
