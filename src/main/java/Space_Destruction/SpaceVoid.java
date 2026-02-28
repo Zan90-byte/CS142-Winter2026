@@ -10,7 +10,7 @@ public class SpaceVoid {
     public SpaceVoid(int x, int y, int maxRad){
         this.x = x;
         this.y = y;
-        this.r = 0;
+        this.r = 1;
         this.maxRad = maxRad;
     }
 

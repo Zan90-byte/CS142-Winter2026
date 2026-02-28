@@ -2,7 +2,7 @@ package Space_Destruction.Space_Objects;
 
 import java.awt.Color;
 
-public class Planetoid extends SpaceObjects {
+public abstract class Planetoid extends SpaceObjects {
 
     protected double distanceFromStar; // Distance from a central star
 
