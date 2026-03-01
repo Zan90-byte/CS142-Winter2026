@@ -25,24 +25,24 @@ public class DestructionMap {
         int p = 0;
         int a = 0;
         int orbit = 20;
+        //objects(0) = the star
         objects.add(new Star());
-
+        //fil rest of objects list with planets and asteroids fields
         while(a < asteroidFields || p < numPlanets){
             Planetoid temp;
             if (a >= asteroidFields){
-                //if already exceeded num of asteroid fields
-//              objects.add(new Planet(orbit));;
-                objects.add(new Planet(orbit)); // Shouldn't be commented out otherwise increment p but don't add planet
+                //if already exceeded num of asteroid fields just add planets
+                objects.add(new Planet(orbit));
                 p ++;
             } else if (p >= numPlanets){
-                //if already exceeded num of planets
+                //if already exceeded num of planets just add asteroid fields
                 int fieldSize = new Random().nextInt(4) + 1;
                 makeAstField(orbit, fieldSize);
                 a ++;
             } else if (new Random().nextBoolean()) {
                 //randomly choose between making a planet or asteroid field
-//                objects.add(new Planet(orbit));;
-                objects.add(new Planet(orbit)); // Same as case above
+                //add planet
+                objects.add(new Planet(orbit));
                 p ++;
             } else {
                 //add asteroids

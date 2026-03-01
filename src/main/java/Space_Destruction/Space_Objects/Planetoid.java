@@ -15,6 +15,8 @@ public abstract class Planetoid extends SpaceObjects {
         this.distanceFromStar = distanceFromStar;
     }
 
+    public Planetoid(){};
+
     public double getDistanceFromStar() {
         return distanceFromStar;
     }
