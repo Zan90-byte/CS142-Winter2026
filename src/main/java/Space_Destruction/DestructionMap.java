@@ -26,11 +26,13 @@ public class DestructionMap {
         int a = 0;
         int orbit = 20;
         objects.add(new Star());
+
         while(a < asteroidFields || p < numPlanets){
             Planetoid temp;
             if (a >= asteroidFields){
                 //if already exceeded num of asteroid fields
-//                objects.add(new Planet(orbit));;
+//              objects.add(new Planet(orbit));;
+                objects.add(new Planet(orbit)); // Shouldn't be commented out otherwise increment p but don't add planet
                 p ++;
             } else if (p >= numPlanets){
                 //if already exceeded num of planets
@@ -40,6 +42,7 @@ public class DestructionMap {
             } else if (new Random().nextBoolean()) {
                 //randomly choose between making a planet or asteroid field
 //                objects.add(new Planet(orbit));;
+                objects.add(new Planet(orbit)); // Same as case above
                 p ++;
             } else {
                 //add asteroids
@@ -55,11 +58,16 @@ public class DestructionMap {
     private void makeAstField(int orbit, int total){
         int numAsteroids = new Random().nextInt(3) + 1;
         List<Asteroid> field = new ArrayList<Asteroid>(numAsteroids);
+
         for (int i = 0; i < numAsteroids; i++){
             Asteroid temp = makeAsteroid(orbit);
+
             while (checkField(field, temp)){
                 temp = makeAsteroid(orbit);
             }
+
+            field.add(temp);  // Asteroids created but not stored so fixed
+            objects.add(temp);
         }
     }
 
@@ -98,7 +106,10 @@ public class DestructionMap {
         }
         //check all objects for if within voids
         for (int v = 0; v < voids.size(); v++){
-            for (int o = 0; 0 < objects.size(); o++){
+
+            //for (int o = 0; 0 < objects.size(); o++){    // Small typo? Infinite loop
+            // Additionally, removing while looping forward causes skips and index issues
+            for (int o = objects.size() - 1; o >= 0; o--){  // loop reversed
                 int x = voids.get(v).getX();
                 int y = voids.get(v).getY();
                 int dist = objects.get(o).getDistanceTo(x, y);
