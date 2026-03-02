@@ -19,12 +19,12 @@ public class SpaceStorm {
             map.update();
 
             // Print objects
-            for (var obj : map.getObjects()) {
+            for (Space_Destruction.Space_Objects.SpaceObjects obj : map.getObjects()) {
                 System.out.println(obj + " at (" + obj.getX() + ", " + obj.getY() + ")");
             }
 
             // Print voids
-            for (var v : map.getVoids()) {
+            for (SpaceVoid v : map.getVoids()) {
                 System.out.println("Void at (" + v.getX() + ", " + v.getY() + ") r=" + v.getR());
             }
 
