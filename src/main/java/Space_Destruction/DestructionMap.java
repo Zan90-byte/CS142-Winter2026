@@ -104,6 +104,9 @@ public class DestructionMap {
         //update all voids in list of voids
         for (SpaceVoid aVoid : voids) {
             aVoid.update();
+//            if ( (aVoid.getMax() * 4) < aVoid.getR() ){
+//                voids.remove(aVoid);
+//            }
         }
         //check all objects for if within voids
         for (int v = 0; v < voids.size(); v++){

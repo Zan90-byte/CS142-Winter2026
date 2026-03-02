@@ -15,12 +15,12 @@ public class SpaceVoid {
     }
 
     public void update(){
-//        if (r < maxRad){
-//            r+= 4; // If we want a slightly faster wave growth
-//            // If we remove the max, the destruction wave will spread until off-screen which could be cool?
-//            // r += 4; with no if
-//        }
-        r += 4;
+        if (r < maxRad * 10){
+            r+= 4; // If we want a slightly faster wave growth
+            // If we remove the max, the destruction wave will spread until off-screen which could be cool?
+            // r += 4; with no if
+        }
+//        r += 4;
     }
 
     public int getX() { return x; }
