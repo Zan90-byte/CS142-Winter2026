@@ -8,6 +8,7 @@ public class Star extends SpaceObjects {
         y = 0;
         radius = 30;
         color = Color.YELLOW;
+        voidSize = 100;
     }
     public String toString(){
         return "*";

@@ -26,7 +26,7 @@ public class DestructionMap {
         int a = 0;
         //objects(0) = the star
         objects.add(new Star());
-        int orbit = 20 + objects.get(0).getR();
+        int orbit = 40 + objects.get(0).getR();
         //fil rest of objects list with planets and asteroids fields
         while(a < asteroidFields || p < numPlanets){
             Planetoid temp;
