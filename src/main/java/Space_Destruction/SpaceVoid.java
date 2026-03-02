@@ -15,7 +15,7 @@ public class SpaceVoid {
     }
 
     public void update(){
-        if (r < maxRad * 10){
+        if (r < maxRad * 4){
             r+= 4; // If we want a slightly faster wave growth
             // If we remove the max, the destruction wave will spread until off-screen which could be cool?
             // r += 4; with no if
