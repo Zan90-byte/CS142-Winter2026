@@ -50,7 +50,8 @@ public class DestructionMap {
                 makeAstField(orbit, fieldSize);
                 a ++;
             }
-            orbit += 20 + new Random().nextInt(6);
+            //orbit += 20 + new Random().nextInt(6);
+            orbit += 60 + new Random().nextInt(20); // overlapping objects in sim
         }
     }
 
