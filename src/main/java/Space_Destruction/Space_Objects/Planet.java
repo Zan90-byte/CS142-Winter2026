@@ -9,10 +9,10 @@ public class Planet extends Planetoid {
     public Planet(int orbit) {
 
         //Costructor
-        int x = new Random().nextInt(orbit+1);
-        int y = (int) Math.sqrt(((orbit*orbit) - (x*x)) );
-        int radius = 15 + rand.nextInt(6);
-        int voidSize = 50 + rand.nextInt(26);
+        x = new Random().nextInt(orbit+1);
+        y = (int) Math.sqrt(((orbit*orbit) - (x*x)) );
+        radius = 15 + rand.nextInt(6);
+        voidSize = 50 + rand.nextInt(26);
 
         //super(x, y, radius, voidSize, orbit);
 
