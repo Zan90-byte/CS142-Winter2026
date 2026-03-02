@@ -1,8 +1,6 @@
 package Space_Destruction;
 
-import java.util.*;
-
-public class SpaceStorm {
+public class SpaceStormMain {
 
     public static void main(String[] args) {
 
