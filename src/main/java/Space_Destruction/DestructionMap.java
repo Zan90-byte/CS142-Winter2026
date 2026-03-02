@@ -102,8 +102,8 @@ public class DestructionMap {
     //update voids than use that to destroy space objects
     public void update(){
         //update all voids in list of voids
-        for (int i = 0; i < voids.size(); i++){
-            voids.get(i).update();
+        for (SpaceVoid aVoid : voids) {
+            aVoid.update();
         }
         //check all objects for if within voids
         for (int v = 0; v < voids.size(); v++){
@@ -116,8 +116,10 @@ public class DestructionMap {
                 int dist = objects.get(o).getDistanceTo(x, y);
                 dist -= objects.get(o).getR();
                 if (dist <= voids.get(v).getR()){
-                    //remove object and create new void at location
-                    voids.add(new SpaceVoid(x, y, objects.get(o).getVoidSize()));
+                    //remove object and create new void at location of destroyed object
+                    int X = objects.get(o).getX();
+                    int Y = objects.get(o).getY();
+                    voids.add(new SpaceVoid(X, Y, objects.get(o).getVoidSize()));
                     objects.remove(o);
                 }
             }
