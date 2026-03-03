@@ -1,127 +1,69 @@
 // Jean and Adrianna
 package Space_Destruction;
 import Space_Destruction.Space_Objects.*;
-import Space_Destruction.Space_Objects.SpaceObjects;
-import Space_Destruction.SpaceVoid;
-
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.JComponent;
-import javax.swing.Timer;
 import java.awt.Graphics;
 import java.util.List;
 
-
-public class GUIProgram extends JPanel{
+public class GUIProgram extends JComponent {
     private int width;
     private int height;
-    private Space_Destruction.DestructionMap map; // need a map, not list
+    private DestructionMap objects;
 
-
-    public GUIProgram(Space_Destruction.DestructionMap map) {
-        this.map = map;
-
-        JFrame frame = new JFrame("Space Destruction Simulation");
-        frame.setSize(800, 800);
+    public GUIProgram (DestructionMap objects){
+        this.objects = objects;
+        JFrame frame = new JFrame();
+        width = 550;
+        height = 550;
+        frame.setSize(width,height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
         frame.add(this);
         frame.setVisible(true);
 
-
-        map.start(); // Start first void
-
-
-        // Animation timer (20 FPS)
-        Timer timer = new Timer(50, e -> {
-            map.update();
-            repaint();
-        });
-
-        timer.start();
     }
-
-
-    @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g){
         super.paintComponent(g);
-
-
-        // Paint background black manually (grey by default)
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, getWidth(), getHeight());
-
-
-        // Move origin (0,0) to center
-        g.translate(getWidth() / 2, getHeight() / 2);
-
-
-        // OPTIONAL: What if we add tiny stars in the back? More space-like?
-        // updates crazy because random. Maybe a stable version?
-//        g.setColor(Color.WHITE);
-//        for (int i = 0; i < 200; i++) {
-//            int x = (int)(Math.random() * getWidth()) - getWidth()/2;
-//            int y = (int)(Math.random() * getHeight()) - getHeight()/2;
-//            g.fillRect(x, y, 1, 1);
-//        }
-
-
-        // Draw space objects
-        for (SpaceObjects obj : map.getObjects()) {
-            g.setColor(obj.getColor());
-            g.fillOval(
-                    obj.getX() - obj.getR(),
-                    obj.getY() - obj.getR(),
-                    obj.getR() * 2,
-                    obj.getR() * 2
-            );
-        }
-
-
-        // Draw voids (black expanding circles)
         Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(3)); // make circle thicker
-        g2.setColor(Color.WHITE);
+        // Drawing Background
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0,0,width,height);
+        // Drawing Space Objects
+        List <SpaceObjects> sO = objects.getObjects();
+        List <SpaceVoid> sV = objects.getVoids();
 
-
-//        for (SpaceVoid v : map.getVoids()) {
-//            g.drawOval(
-//                    v.getX() - v.getR(),
-//                    v.getY() - v.getR(),
-//                    v.getR() * 2,
-//                    v.getR() * 2
-//            );
-//        }
-
-
-        // What if we make one outer ring bright and the inner circle semi-transparent like a real shockwave?
-        for (SpaceVoid v : map.getVoids()) {
-
-
-            // semi-transparent white
-            g2.setColor(new Color(255, 255, 255, 80));
-
-
-            g2.fillOval(
-                    v.getX() - v.getR(),
-                    v.getY() - v.getR(),
-                    v.getR() * 2,
-                    v.getR() * 2
-            );
-
-
-            // outer bright ring
-            g2.setColor(Color.WHITE);
-            g2.setStroke(new BasicStroke(3));
-            g2.drawOval(
-                    v.getX() - v.getR(),
-                    v.getY() - v.getR(),
-                    v.getR() * 2,
-                    v.getR() * 2
-            );
+        for (int i=0;i<sO.size();i++){
+            g2.setColor(sO.get(i).getColor());
+            int xpos = sO.get(i).getX();
+            int ypos = sO.get(i).getY();
+            int rad = sO.get(i).getR()*2;
+            g2.fillOval(xpos,ypos,rad,rad);
         }
+        for(int i=0;i<sV.size();i++){
+            g2.setColor(Color.RED);
+            int xpos = sV.get(i).getX();
+            int ypos = sV.get(i).getY();
+            int rad = sV.get(i).getR()*2;
+            /*
+            getting rid of planet:
+            for (int i=0;i<sO.size();i++){
+                int sOX = sO.get(i).getX();
+                int sOY = sO.get(i).getY();
+                int sOR = sO.get(i).getR()*2;
+                if (xpos==sOX&&ypos==sOY){
+                    g2.drawOval(sOX,sOY,sOR,sOR);
+                }
+            }
+             */
+            g2.drawOval(xpos,ypos,rad,rad);
+        }
+        /*
+        public void update(DestructionMap temp){
+            objects = temp;
+            repaint();
+        }
+         */
     }
-
-
 }
