@@ -2,6 +2,7 @@ package Space_Destruction;
 import Space_Destruction.Space_Objects.*;
 //import Space_Destruction.Space_Objects.SpaceObjects;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -103,28 +104,40 @@ public class DestructionMap {
 
     //update voids than use that to destroy space objects
     public void update(){
-        //update all voids in list of voids
-        for (SpaceVoid aVoid : voids) {
-            aVoid.update();
-//            if ( (aVoid.getMax() * 4) < aVoid.getR() ){
-//                voids.remove(aVoid);
-//            }
-        }
-        //check all objects for if within voids
-        for (int v = 0; v < voids.size(); v++){
 
-            //for (int o = 0; 0 < objects.size(); o++){    // Small typo? Infinite loop
-            // Additionally, removing while looping forward causes skips and index issues
-            for (int o = objects.size() - 1; o >= 0; o--){  // loop reversed
-                int x = voids.get(v).getX();
-                int y = voids.get(v).getY();
-                int dist = objects.get(o).getDistanceTo(x, y);
-                dist -= objects.get(o).getR();
-                if (dist <= voids.get(v).getR()){
-                    //remove object and create new void at location of destroyed object
-                    int X = objects.get(o).getX();
-                    int Y = objects.get(o).getY();
-                    voids.add(new SpaceVoid(X, Y, objects.get(o).getVoidSize()));
+        // Update and remove finished voids
+        for (int v = 0; v < voids.size(); v++) {
+            SpaceVoid currentVoid = voids.get(v);
+            currentVoid.update();
+
+            if (currentVoid.isFinished()) {
+                voids.remove(v);
+                v--;
+            }
+        }
+
+        // Check collision between voids and objects
+        for (int v = 0; v < voids.size(); v++) {
+
+            int voidX = voids.get(v).getX();
+            int voidY = voids.get(v).getY();
+            int voidR = voids.get(v).getR();
+
+            for (int o = objects.size() - 1; o >= 0; o--) {
+
+                SpaceObjects obj = objects.get(o);
+
+                int dist = obj.getDistanceTo(voidX, voidY);
+
+                if (dist <= voidR) {
+
+                    // Create new void at destroyed object location
+                    voids.add(new SpaceVoid(
+                            obj.getX(),
+                            obj.getY(),
+                            obj.getVoidSize()
+                    ));
+
                     objects.remove(o);
                 }
             }
@@ -153,6 +166,17 @@ public class DestructionMap {
         int maxRad = objects.get(choice).getVoidSize();
         voids.add(new SpaceVoid(x, y, maxRad));
         objects.remove(choice);
+    }
+
+    public void draw(Graphics g) {
+
+        for (SpaceObjects obj : objects) {
+            obj.draw(g);
+        }
+
+        for (SpaceVoid v : voids) {
+            v.draw(g);
+        }
     }
 
 }

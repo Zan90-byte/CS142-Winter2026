@@ -1,5 +1,7 @@
 package Space_Destruction.Space_Objects;
+
 import java.awt.*;
+
 public abstract class SpaceObjects {
     protected int x;
     protected int y;
@@ -28,7 +30,10 @@ public abstract class SpaceObjects {
     public String toString(){return "?";}
 
 
-
+    public void draw(Graphics g) {
+        g.setColor(getColor());
+        g.fillOval(x, y, radius, radius);
+    }
 
 //Update
 

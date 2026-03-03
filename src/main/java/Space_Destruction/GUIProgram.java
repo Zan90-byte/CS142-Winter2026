@@ -1,69 +1,65 @@
-// Jean and Adrianna
 package Space_Destruction;
 import Space_Destruction.Space_Objects.*;
-import java.util.*;
+
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.JComponent;
-import java.awt.Graphics;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
 
-public class GUIProgram extends JComponent {
-    private int width;
-    private int height;
-    private DestructionMap objects;
+public class GUIProgram extends JPanel {
 
-    public GUIProgram (DestructionMap objects){
-        this.objects = objects;
-        JFrame frame = new JFrame();
-        width = 550;
-        height = 550;
-        frame.setSize(width,height);
+    private DestructionMap map;
+    private ArrayList<backgroundStars> stars;
+
+    public GUIProgram(DestructionMap map) {
+        this.map = map;
+
+        stars = new ArrayList<>();
+
+        JFrame frame = new JFrame("Space Destruction Simulation");
+        frame.setSize(800, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         frame.add(this);
         frame.setVisible(true);
 
-    }
-    protected void paintComponent(Graphics g){
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        // Drawing Background
-        g2.setColor(Color.BLACK);
-        g2.fillRect(0,0,width,height);
-        // Drawing Space Objects
-        List <SpaceObjects> sO = objects.getObjects();
-        List <SpaceVoid> sV = objects.getVoids();
+        Random rand = new Random();
 
-        for (int i=0;i<sO.size();i++){
-            g2.setColor(sO.get(i).getColor());
-            int xpos = sO.get(i).getX();
-            int ypos = sO.get(i).getY();
-            int rad = sO.get(i).getR()*2;
-            g2.fillOval(xpos,ypos,rad,rad);
+        for (int i = 0; i < 200; i++) {
+            stars.add(new backgroundStars(
+                    rand.nextInt(800),
+                    rand.nextInt(800),
+                    rand.nextInt(3) + 1
+            ));
         }
-        for(int i=0;i<sV.size();i++){
-            g2.setColor(Color.RED);
-            int xpos = sV.get(i).getX();
-            int ypos = sV.get(i).getY();
-            int rad = sV.get(i).getR()*2;
-            /*
-            getting rid of planet:
-            for (int i=0;i<sO.size();i++){
-                int sOX = sO.get(i).getX();
-                int sOY = sO.get(i).getY();
-                int sOR = sO.get(i).getR()*2;
-                if (xpos==sOX&&ypos==sOY){
-                    g2.drawOval(sOX,sOY,sOR,sOR);
-                }
-            }
-             */
-            g2.drawOval(xpos,ypos,rad,rad);
-        }
-        /*
-        public void update(DestructionMap temp){
-            objects = temp;
+
+        map.start();
+
+        Timer timer = new Timer(50, e -> {
+            map.update();
             repaint();
+        });
+
+        timer.start();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // Paint background black (grey by default)
+        setBackground(Color.BLACK);
+
+        // Draw stars
+        for (backgroundStars s : stars) {
+            s.draw(g);
         }
-         */
+
+        // Move origin (0, 0) to center
+        Graphics2D g2 = (Graphics2D) g;
+        g2.translate(getWidth() / 2, getHeight() / 2);
+
+        // Draw simulation
+        map.draw(g2);
     }
 }
