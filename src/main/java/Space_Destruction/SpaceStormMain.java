@@ -17,6 +17,7 @@ public class SpaceStormMain {
     }
 }
 
+// VERSION 1 Printing to Console
 //    public static void main(String[] args) {
 //
 //        // Create a map

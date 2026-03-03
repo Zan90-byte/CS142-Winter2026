@@ -18,6 +18,9 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
     // map.update() to advance simulation (can we make a tick with this?)
     // map.draw(Graphics g) can render objects
     private ArrayList<backgroundStars> stars; // List of static stars (don't move or get destroyed)
+    private Timer timer; // Variable to control timer globally
+    private boolean paused = false; // Variable to track if sim is paused
+
 
     public GUIProgram(DestructionMap map) {
         this.map = map; // Saves DestructionMap reference for later use
@@ -26,6 +29,49 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         // Create a JFrame to display the simulation
         JFrame frame = new JFrame("Space Destruction Simulation"); // Create and name frame
+        frame.setLayout(new BorderLayout()); // Adds space around simulation to add buttons
+
+        frame.add(this, BorderLayout.CENTER); // Simulation panel in center
+
+        // Add buttons for simulation control
+        JPanel buttonPanel = new JPanel(); // Panel to actually hold buttons
+
+        JButton pauseButton = new JButton("Pause"); //  Create Pause button
+        JButton resumeButton = new JButton("Resume"); // Create Resume button
+        JButton tickButton = new JButton("Tick"); // Create Tick button to move one frame exactly
+
+        buttonPanel.add(pauseButton); // Add buttons to button panel
+        buttonPanel.add(resumeButton);
+        buttonPanel.add(tickButton);
+
+        frame.add(buttonPanel, BorderLayout.SOUTH); // Place button panel on bottom of border
+
+        // Animation timer
+        Timer timer = new Timer(50, e -> { // Triggers code at fixed interval (50 ms)
+            map.update(); // Advances simulation: expands wave, check obj destruction, update voids
+            repaint(); // Triggers paintComponent(Graphics g) to redraw everything
+        });
+
+        timer.start(); // Begins repeated triggering (ticking) automatically
+
+        // Button Actions
+        pauseButton.addActionListener(e -> { // Pauses
+            timer.stop();
+            paused = true;
+        });
+
+        resumeButton.addActionListener(e -> { // Play/Resume
+            timer.start();
+            paused = false;
+        });
+
+        tickButton.addActionListener(e -> { // Ticks over ONE frame
+            if (paused) {
+                map.update();
+                repaint();
+            }
+        });
+
         frame.setSize(800, 800); // Sets frame dimensions
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Closes program if window closed
         frame.setLocationRelativeTo(null); // Centers window on screen
@@ -43,14 +89,6 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         }
 
         map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
-
-        // Animation timer
-        Timer timer = new Timer(50, e -> { // Triggers code at fixed interval (50 ms)
-            map.update(); // Advances simulation: expands wave, check obj destruction, update voids
-            repaint(); // Triggers paintComponent(Graphics g) to redraw everything
-        });
-
-        timer.start(); // Begins repeated triggering (ticking) automatically
     }
 
     @Override
