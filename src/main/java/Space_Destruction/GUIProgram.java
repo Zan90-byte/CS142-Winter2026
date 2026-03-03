@@ -1,65 +1,75 @@
+// Adrianna + Jean + Vicktoria
+// GUIProgram Purpose: Graphical front-end for destruction simulation
+// Constructs a JFrame, generates background stars, simulation map is started, timer updates
+// Shockwaves grow and fade, objects may be destroyed, and everything is continuously animated
+// DestructionMap handles simulation logic, GUI handles drawing + animation
+
 package Space_Destruction;
-import Space_Destruction.Space_Objects.*;
+import Space_Destruction.Space_Objects.*; // Imports all space object classes
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Random;
+import javax.swing.*; // Imports JPanel, JFrame, Timer
+import javax.swing.Timer;
+import java.awt.*; // Imports graphics classes: Graphics, Graphics2D and Color
+import java.util.*; // Imports ArrayList and Random
 
-public class GUIProgram extends JPanel {
+public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
-    private DestructionMap map;
-    private ArrayList<backgroundStars> stars;
+    private DestructionMap map; // Holds simulation state (list of all space objects and wave)
+    // map.update() to advance simulation (can we make a tick with this?)
+    // map.draw(Graphics g) can render objects
+    private ArrayList<backgroundStars> stars; // List of static stars (don't move or get destroyed)
 
     public GUIProgram(DestructionMap map) {
-        this.map = map;
+        this.map = map; // Saves DestructionMap reference for later use
 
-        stars = new ArrayList<>();
+        stars = new ArrayList<>(); // Initializes star list as empty arraylist
 
-        JFrame frame = new JFrame("Space Destruction Simulation");
-        frame.setSize(800, 800);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.add(this);
-        frame.setVisible(true);
+        // Create a JFrame to display the simulation
+        JFrame frame = new JFrame("Space Destruction Simulation"); // Create and name frame
+        frame.setSize(800, 800); // Sets frame dimensions
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Closes program if window closed
+        frame.setLocationRelativeTo(null); // Centers window on screen
+        frame.add(this); // Adds GUIProgram to JFrame
+        frame.setVisible(true); // Makes window appear
 
-        Random rand = new Random();
-
+        Random rand = new Random(); // Random object
+        // Randomly generates 200 stars for a background
         for (int i = 0; i < 200; i++) {
             stars.add(new backgroundStars(
-                    rand.nextInt(800),
-                    rand.nextInt(800),
-                    rand.nextInt(3) + 1
+                    rand.nextInt(800), // Horizontal range (x pos)
+                    rand.nextInt(800), // Vertical range (y pos)
+                    rand.nextInt(3) + 1 // Star size randomly between 1 and 3 pixels
             ));
         }
 
-        map.start();
+        map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
 
-        Timer timer = new Timer(50, e -> {
-            map.update();
-            repaint();
+        // Animation timer
+        Timer timer = new Timer(50, e -> { // Triggers code at fixed interval (50 ms)
+            map.update(); // Advances simulation: expands wave, check obj destruction, update voids
+            repaint(); // Triggers paintComponent(Graphics g) to redraw everything
         });
 
-        timer.start();
+        timer.start(); // Begins repeated triggering (ticking) automatically
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    protected void paintComponent(Graphics g) { // Called every repaint()
+        super.paintComponent(g); // Clears previous frame
 
-        // Paint background black (grey by default)
-        setBackground(Color.BLACK);
+        setBackground(Color.BLACK); // Paints background black (grey by default)
 
-        // Draw stars
-        for (backgroundStars s : stars) {
-            s.draw(g);
+        // Draws stars
+        for (backgroundStars s : stars) { // Iterates through static star list
+            s.draw(g); // Calls draw(Graphics g) on each star to make background
         }
 
         // Move origin (0, 0) to center
-        Graphics2D g2 = (Graphics2D) g;
-        g2.translate(getWidth() / 2, getHeight() / 2);
+        Graphics2D g2 = (Graphics2D) g; // Graphics extension for line thickness, etc
+        g2.translate(getWidth() / 2, getHeight() / 2); // Moves coordinate origin to panel center
+        // Necessary because we place all objects relative to center star
 
-        // Draw simulation
-        map.draw(g2);
+        map.draw(g2); // Calls DestructionMap.draw which draws each object and each SpaceVoid
+        // Effect is star centrally placed, planets/asteroids around it, shockwave moving outwards
     }
 }

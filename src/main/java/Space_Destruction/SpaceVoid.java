@@ -44,14 +44,9 @@ public class SpaceVoid {
         return alpha <= 0; // DestructionMap will remove finished waves from list
     }
 
-    //
+    // Responsible for actual rendering of destruction wave rings
     public void draw(Graphics g){
-        Graphics2D g2 = (Graphics2D) g; // Enhanced graphics (line thickness, transparency, aliasing)
-
-        // KEY_ANTIALIASING: enables smoother rendering by smoothing edges on circles
-//        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-//                RenderingHints.VALUE_ANTIALIAS_ON);
-        // Thought I'd try it out since I already imported the graphics class, anyone see a difference?
+        Graphics2D g2 = (Graphics2D) g; // Enhanced graphics (line thickness, transparency, etc)
 
         // INNER FLASH CORE: Initial flash bright and small in center
         int coreAlpha = Math.min(255, alpha + 50); // Small bright center blast
@@ -63,7 +58,7 @@ public class SpaceVoid {
         g2.fillOval(x - r, y - r, r * 2, r * 2); // Fills main circle
 
         // GLOWING OUTER RING: Creates a bold wavefront
-        g2.setStroke(new BasicStroke(5)); // Sets line thickness
+        g2.setStroke(new BasicStroke(3)); // Sets line thickness
         g2.setColor(new Color(255, 255, 255, alpha)); // Links transparency to alpha for fade out
         g2.drawOval(x - r, y - r, r * 2, r * 2); // Draws outer ring
 

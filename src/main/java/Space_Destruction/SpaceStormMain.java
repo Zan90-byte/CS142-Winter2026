@@ -1,12 +1,19 @@
+// SpaceStormMain Purpose: Main class for launching the simulation
+
 package Space_Destruction;
 
 public class SpaceStormMain {
 
     public static void main(String[] args) {
-
+        // Creates new DestructionMap object and assigns it to variable map
+        // DestructionMap initializes list of objects and voids, adds central star, randomly
+        // generates planets and asteroid fields
         Space_Destruction.DestructionMap map = new Space_Destruction.DestructionMap(100, 4, 3);
 
-        new Space_Destruction.GUIProgram(map);
+        new Space_Destruction.GUIProgram(map); // Creates GUI and passes it map
+        // Stores map as field, creates background stars, creates JFrame, starts simulation
+        // timer to call map.update() and repaint() to expand destruction waves and destroy
+        // objects in their path then redraw the panel of undestroyed objects
     }
 }
 
