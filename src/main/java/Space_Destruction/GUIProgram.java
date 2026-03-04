@@ -10,9 +10,12 @@ import Space_Destruction.Space_Objects.*; // Imports all space object classes
 import javax.swing.*; // Imports JPanel, JFrame, Timer
 import javax.swing.Timer;
 import java.awt.*; // Imports graphics classes: Graphics, Graphics2D and Color
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.*; // Imports ArrayList and Random
 
 public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
+
 
     private DestructionMap map; // Holds simulation state (list of all space objects and wave)
     // map.update() to advance simulation (can we make a tick with this?)
@@ -23,8 +26,8 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
 
     public GUIProgram(DestructionMap map) {
-        this.map = map; // Saves DestructionMap reference for later use
 
+        this.map = map; // Saves DestructionMap reference for later use
         stars = new ArrayList<>(); // Initializes star list as empty arraylist
 
         // Create a JFrame to display the simulation
@@ -72,30 +75,60 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             }
         });
 
+
         frame.setSize(800, 800); // Sets frame dimensions
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Closes program if window closed
         frame.setLocationRelativeTo(null); // Centers window on screen
         frame.add(this); // Adds GUIProgram to JFrame
         frame.setVisible(true); // Makes window appear
 
-        Random rand = new Random(); // Random object
-        // Randomly generates 200 stars for a background
-        for (int i = 0; i < 200; i++) {
-            stars.add(new backgroundStars(
-                    rand.nextInt(800), // Horizontal range (x pos)
-                    rand.nextInt(800), // Vertical range (y pos)
+        //Distribute stars on frame when resized
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                genStars(); //Generates stars when frame is resized
+                repaint(); //Repaints
+            }
+        });
+
+       genStars(); //Generates Stars when simulations starts
+       map.start(); //Starts simulation
+    }
+
+        private void genStars() {
+
+            stars.clear(); //Clears stars before adding new ones
+            Random rand = new Random(); // Random object
+            int width = getWidth(); // Width of frame
+            int height = getHeight(); // Height of frame
+
+            if (width <= 0 || height <= 0) { // If you call genStars before frame height and width are valid
+                return;                      // it won't break the code
+            }
+
+        // Randomly generates 1 star per 50x50 px for background
+            int numStars = (getWidth() * getHeight()) / 2500; //Generates 1 star per 50x50 px
+            for (int i = 0; i < numStars; i++) { //instead 200 stars used numStars to fill screen
+                stars.add(new backgroundStars(
+                    rand.nextInt(width), // Utilized width to randomly generate stars
+                    rand.nextInt(height), // Utilized height to randomly generate stars
                     rand.nextInt(3) + 1 // Star size randomly between 1 and 3 pixels
             ));
+
         }
 
         map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
+
     }
+
+
 
     @Override
     protected void paintComponent(Graphics g) { // Called every repaint()
         super.paintComponent(g); // Clears previous frame
 
-        setBackground(Color.BLACK); // Paints background black (grey by default)
+        setBackground(Color.BLACK); // Paints background black (gray by default)
+        //g.fillRect(0, 0, getWidth(), getHeight()); // No need for this
 
         // Draws stars
         for (backgroundStars s : stars) { // Iterates through static star list
@@ -110,4 +143,6 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         map.draw(g2); // Calls DestructionMap.draw which draws each object and each SpaceVoid
         // Effect is star centrally placed, planets/asteroids around it, shockwave moving outwards
     }
+
+
 }
