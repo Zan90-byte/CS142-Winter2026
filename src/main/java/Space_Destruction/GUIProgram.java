@@ -49,6 +49,14 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         frame.add(buttonPanel, BorderLayout.SOUTH); // Place button panel on bottom of border
 
+        // add slider (speed slider)
+        JLabel speedLabel = new JLabel("Speed: Fast");
+        JSlider speedSlider = new JSlider(10, 500, 50);
+        speedSlider.setInverted(true); // right = fast
+        buttonPanel.add(speedLabel);
+        buttonPanel.add(speedSlider);
+
+
         // Animation timer
         Timer timer = new Timer(50, e -> { // Triggers code at fixed interval (50 ms)
             map.update(); // Advances simulation: expands wave, check obj destruction, update voids
@@ -68,6 +76,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             paused = false;
         });
 
+
         tickButton.addActionListener(e -> { // Ticks over ONE frame
             if (paused) {
                 map.update();
@@ -75,6 +84,15 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             }
         });
 
+        speedSlider.addChangeListener(e -> {
+            // get current value and then change time interval
+            int delay = speedSlider.getValue();
+            timer.setDelay(delay);
+            if (delay <= 50) speedLabel.setText("Fast");
+            else if(delay <= 20) speedLabel.setText("Speed: Medium");
+            else speedLabel.setText("Speed: Slow");
+
+        });
 
         frame.setSize(800, 800); // Sets frame dimensions
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Closes program if window closed
@@ -121,8 +139,6 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
     }
 
-
-
     @Override
     protected void paintComponent(Graphics g) { // Called every repaint()
         super.paintComponent(g); // Clears previous frame
@@ -143,6 +159,4 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         map.draw(g2); // Calls DestructionMap.draw which draws each object and each SpaceVoid
         // Effect is star centrally placed, planets/asteroids around it, shockwave moving outwards
     }
-
-
 }
