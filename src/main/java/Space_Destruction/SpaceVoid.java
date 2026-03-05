@@ -18,14 +18,14 @@ public class SpaceVoid {
         this.x = x; // Initializes new wave at (x, y) with target radius maxRad
         this.y = y;
         this.r = 1; // Sets initial radius at 1
-        this.maxRad = maxRad;
+        this.maxRad = maxRad * 2;
     }
 
     // Advances the shockwave each frame
     public void update(int scale){
         life++; // Counts frames (as "age" of wave) for visual effects
 
-        if (r < maxRad * 4){ // Expands radius quickly for explosive effect
+        if (r < maxRad){ // Expands radius quickly for explosive effect
             if (r + scale > maxRad){
                 r = maxRad;
             } else {

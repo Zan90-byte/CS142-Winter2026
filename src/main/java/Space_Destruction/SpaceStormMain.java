@@ -8,7 +8,7 @@ public class SpaceStormMain {
         // Creates new DestructionMap object and assigns it to variable map
         // DestructionMap initializes list of objects and voids, adds central star, randomly
         // generates planets and asteroid fields
-        Space_Destruction.DestructionMap map = new Space_Destruction.DestructionMap(100, 4, 3);
+        Space_Destruction.DestructionMap map = new Space_Destruction.DestructionMap(5, 4, 3);
 
         new Space_Destruction.GUIProgram(map); // Creates GUI and passes it map
         // Stores map as field, creates background stars, creates JFrame, starts simulation
