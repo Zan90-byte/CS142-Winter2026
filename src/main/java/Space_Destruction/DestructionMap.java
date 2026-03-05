@@ -108,7 +108,7 @@ public class DestructionMap {
         // Update and remove finished voids
         for (int v = 0; v < voids.size(); v++) {
             SpaceVoid currentVoid = voids.get(v);
-            currentVoid.update();
+            currentVoid.update(scale);
 
             if (currentVoid.isFinished()) {
                 voids.remove(v);
@@ -167,6 +167,19 @@ public class DestructionMap {
         voids.add(new SpaceVoid(x, y, maxRad));
         objects.remove(choice);
     }
+
+    // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+
+    public void setScale(int scale){
+        this.scale = scale;
+    }
+
+    public int getScale(){
+        return scale;
+    }
+
+    // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+
 
     public void draw(Graphics g) {
 
