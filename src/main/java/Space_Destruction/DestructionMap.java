@@ -14,45 +14,91 @@ public class DestructionMap {
     private List<SpaceVoid> voids;
 
     //constructor
-    public DestructionMap(int scale, int numPlanets, int asteroidFields){
+    public DestructionMap(int scale, int numPlanets, int asteroidFields, int planetoids){
         this.scale = scale;
         objects = new ArrayList<SpaceObjects>();
         voids = new ArrayList<SpaceVoid>();
-        fill(numPlanets, asteroidFields);
+        fill(numPlanets, asteroidFields, planetoids);
+    }
+
+    //alternate constructor to not break anything while working on new one
+    public DestructionMap(int scale, int numPlanets, int asteroidFields){
+        this(scale, numPlanets, asteroidFields, 0);
     }
 
     //fills lists
-    private void fill(int numPlanets, int asteroidFields){
+    private void fill(int numPlanets, int asteroidFields, int numPlanetoids){
         int p = 0;
         int a = 0;
+        int pO = 0;
+        Random r = new Random();
         //objects(0) = the star
         objects.add(new Star());
         int orbit = 40 + objects.get(0).getR();
         //fil rest of objects list with planets and asteroids fields
-        while(a < asteroidFields || p < numPlanets){
-            Planetoid temp;
-            if (a >= asteroidFields){
+        while(a < asteroidFields || p < numPlanets || pO < numPlanetoids){
+
+            if (a >= asteroidFields && pO >= numPlanetoids){
                 //if already exceeded num of asteroid fields just add planets
                 objects.add(new Planet(orbit));
                 p ++;
-            } else if (p >= numPlanets){
+            } else if (p >= numPlanets && pO >= numPlanetoids){
                 //if already exceeded num of planets just add asteroid fields
-                int fieldSize = new Random().nextInt(4) + 1;
-                makeAstField(orbit, fieldSize);
+                makeAstField(orbit, r.nextInt(4) + 1);
                 a ++;
-            } else if (new Random().nextBoolean()) {
-                //randomly choose between making a planet or asteroid field
-                //add planet
-                objects.add(new Planet(orbit));
-                p ++;
+            } else if (p >= numPlanets && a >= asteroidFields){
+                //if already exceeded num of planets & asteroid fields
+                objects.add(new Planetoid(orbit));
+                pO ++;
+            } else if(pO >= numPlanetoids) {
+                if (r.nextBoolean()){
+                    //add asteroids
+                    makeAstField(orbit, r.nextInt(4) + 1);
+                    a ++;
+                } else {
+                    //add planet
+                    objects.add(new Planet(orbit));
+                    p ++;
+                }
+            } else if (p >= numPlanets){
+                if (r.nextBoolean()){
+                    //add asteroids
+                    makeAstField(orbit, r.nextInt(4) + 1);
+                    a ++;
+                } else {
+                    //make planetoid
+                    objects.add(new Planetoid(orbit));
+                    pO ++;
+                }
+            } else if(a >= asteroidFields){
+                if (r.nextBoolean()){
+                    //add planet
+                    objects.add(new Planet(orbit));
+                    p ++;
+                } else {
+                    //make planetoid
+                    objects.add(new Planetoid(orbit));
+                    pO ++;
+                }
             } else {
-                //add asteroids
-                int fieldSize = new Random().nextInt(4) + 1;
-                makeAstField(orbit, fieldSize);
-                a ++;
+                //randomly choose type of planetoid to make
+                int choice = r.nextInt(3);
+                if (choice == 0) {
+                    //add asteroids
+                    makeAstField(orbit, r.nextInt(4) + 1);
+                    a++;
+                } else if (choice == 1){
+                    //add planet
+                    objects.add(new Planet(orbit));
+                    p ++;
+                } else {
+                    //make planetoid
+                    objects.add(new Planetoid(orbit));
+                    pO ++;
+                }
             }
             //increment orbit by 20-40 + radius of last object
-            orbit += objects.get(objects.size()-1).getR() + 20 + new Random().nextInt(21);
+            orbit += objects.get(objects.size()-1).getR() + 20 + r.nextInt(21);
             //orbit += 20 + new Random().nextInt(6);
 //            orbit += 60 + new Random().nextInt(20); // overlapping objects in sim
         }
