@@ -88,7 +88,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             // get current value and then change time interval
             int delay = speedSlider.getValue();
             timer.setDelay(delay);
-            if (delay <= 50) speedLabel.setText("Fast");
+            if (delay <= 50) speedLabel.setText("Speed: Fast");
             else if(delay <= 20) speedLabel.setText("Speed: Medium");
             else speedLabel.setText("Speed: Slow");
 
