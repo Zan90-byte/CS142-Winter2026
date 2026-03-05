@@ -22,11 +22,16 @@ public class SpaceVoid {
     }
 
     // Advances the shockwave each frame
-    public void update(){
+    public void update(int scale){
         life++; // Counts frames (as "age" of wave) for visual effects
 
         if (r < maxRad * 4){ // Expands radius quickly for explosive effect
-            r += 6;  // Wave grows 6 pixels per frame
+            if (r + scale > maxRad){
+                r = maxRad;
+            } else {
+                r += scale;
+            }
+//            r += 6;  // Wave grows 6 pixels per frame
         }
 
         if (life > 20 && alpha > 0){ // Delays fading of wave for 20 frames
