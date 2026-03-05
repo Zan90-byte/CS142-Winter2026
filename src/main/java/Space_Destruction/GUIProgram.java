@@ -52,9 +52,9 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         // add slider (speed slider)
         JLabel speedLabel = new JLabel("Speed: Fast");
         JSlider speedSlider = new JSlider(10, 500, 50);
-        speedSlider.setInverted(true); // right = fast
         buttonPanel.add(speedLabel);
         buttonPanel.add(speedSlider);
+       // speedSlider.setInverted(true);
 
 
         // Animation timer
@@ -86,11 +86,12 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         speedSlider.addChangeListener(e -> {
             // get current value and then change time interval
-            int delay = speedSlider.getValue();
-            timer.setDelay(delay);
-            if (delay <= 50) speedLabel.setText("Speed: Fast");
-            else if(delay <= 20) speedLabel.setText("Speed: Medium");
-            else speedLabel.setText("Speed: Slow");
+            int scale = speedSlider.getValue();
+            //timer.setDelay(delay);
+            map.setScale(scale);
+            if (scale <= 6) speedLabel.setText("Speed: Slow");
+            else if(scale <= 13) speedLabel.setText("Speed: Medium");
+            else speedLabel.setText("Speed: Fast");
 
         });
 
