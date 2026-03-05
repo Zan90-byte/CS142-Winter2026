@@ -110,33 +110,31 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         });
 
        genStars(); //Generates Stars when simulations starts
-       map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
+       map.start(); //Starts simulation
     }
 
-        private void genStars() {
+    private void genStars() {
 
-            stars.clear(); //Clears stars before adding new ones
-            Random rand = new Random(); // Random object
-            int width = getWidth(); // Width of frame
-            int height = getHeight(); // Height of frame
+        stars.clear(); //Clears stars before adding new ones
+        Random rand = new Random(); // Random object
+        int width = getWidth(); // Width of frame
+        int height = getHeight(); // Height of frame
 
-            if (width <= 0 || height <= 0) { // If you call genStars before frame height and width are valid
-                return;                      // it won't break the code
-            }
+        if (width <= 0 || height <= 0) { // If you call genStars before frame height and width are valid
+            return;                      // it won't break the code
+        }
 
         // Randomly generates 1 star per 50x50 px for background
-            int numStars = (getWidth() * getHeight()) / 2500; //Generates 1 star per 50x50 px
-            for (int i = 0; i < numStars; i++) { //instead 200 stars used numStars to fill screen
-                stars.add(new backgroundStars(
+        int numStars = (getWidth() * getHeight()) / 2500; //Generates 1 star per 50x50 px
+        for (int i = 0; i < numStars; i++) { //instead 200 stars used numStars to fill screen
+            stars.add(new backgroundStars(
                     rand.nextInt(width), // Utilized width to randomly generate stars
                     rand.nextInt(height), // Utilized height to randomly generate stars
                     rand.nextInt(3) + 1 // Star size randomly between 1 and 3 pixels
             ));
 
         }
-
-
-
+        map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
     }
 
     @Override
