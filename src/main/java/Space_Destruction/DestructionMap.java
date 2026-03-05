@@ -127,16 +127,15 @@ public class DestructionMap {
 
                 SpaceObjects obj = objects.get(o);
 
-                int dist = obj.getDistanceTo(voidX, voidY);
+                int dist = obj.getDistanceTo(voidX, voidY) - obj.getR();
 
                 if (dist <= voidR) {
+                    int X = obj.getX();
+                    int Y = obj.getY();
+                    int size = obj.getVoidSize();
 
                     // Create new void at destroyed object location
-                    voids.add(new SpaceVoid(
-                            obj.getX(),
-                            obj.getY(),
-                            obj.getVoidSize()
-                    ));
+                    voids.add(new SpaceVoid(X, Y, size));
 
                     objects.remove(o);
                 }
