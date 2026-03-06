@@ -118,7 +118,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         });
 
        genStars(); //Generates Stars when simulations starts
-       map.start(); //Starts simulation
+       map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
     }
 
     private void genStars() {
@@ -142,7 +142,6 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             ));
 
         }
-        map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
     }
 
     @Override

@@ -205,7 +205,7 @@ public class DestructionMap {
 
     public void start(){
         //to block issues with multiple voids being initialized
-        if (voids.isEmpty()) {
+//        if (voids.isEmpty()) {
             //adds initial void at one randomly selected Planetoid, destroying that Planetoid in precess
             int choice = 1 + new Random().nextInt(objects.size() - 1);
             int x = objects.get(choice).getX();
@@ -213,7 +213,7 @@ public class DestructionMap {
             int maxRad = objects.get(choice).getVoidSize();
             voids.add(new SpaceVoid(x, y, maxRad));
             objects.remove(choice);
-        }
+//        }
     }
 
     // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
