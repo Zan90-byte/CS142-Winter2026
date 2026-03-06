@@ -236,6 +236,13 @@ public class DestructionMap {
         //need to call start manually afterward
     }
 
+    public void reStart(int numPlanets, int asteroidFields, int numPlanetoids){
+        this.numPlanets = numPlanets;
+        this.asteroidFields = asteroidFields;
+        this.numPlanetoids = numPlanetoids;
+        this.reStart();;
+    }
+
     // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 
     public void setScale(int scale){
