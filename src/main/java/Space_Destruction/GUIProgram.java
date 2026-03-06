@@ -80,9 +80,11 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             if (paused){
                 timer.start();
                 paused = false;
+                pauseButton.setText("Pause");
             } else{
                 timer.stop();
                 paused = true;
+                pauseButton.setText("Resume");
 
             }
         });
