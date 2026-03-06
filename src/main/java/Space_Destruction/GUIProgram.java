@@ -89,6 +89,9 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         });
 
         pauseButton.addActionListener(e -> { // Pauses
+            if (!started){
+                return;
+            }
             if (paused){
                 timer.start();
                 paused = false;
