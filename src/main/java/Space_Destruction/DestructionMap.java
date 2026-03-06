@@ -211,15 +211,21 @@ public class DestructionMap {
 
     public void start(){
         //to block issues with multiple voids being initialized
-//        if (voids.isEmpty()) {
+        int choice;
+        if (objects.size() > 1) {
             //adds initial void at one randomly selected Planetoid, destroying that Planetoid in precess
-            int choice = 1 + new Random().nextInt(objects.size()/2 - 1);
-            int x = objects.get(choice).getX();
-            int y = objects.get(choice).getY();
-            int maxRad = objects.get(choice).getVoidSize();
-            voids.add(new SpaceVoid(x, y, maxRad));
-            objects.remove(choice);
-//        }
+            choice = 1 + new Random().nextInt(objects.size() - 1);
+
+        } else if (!objects.isEmpty()){
+            choice = 0;
+        } else {
+            return;
+        }
+        int x = objects.get(choice).getX();
+        int y = objects.get(choice).getY();
+        int maxRad = objects.get(choice).getVoidSize();
+        voids.add(new SpaceVoid(x, y, maxRad));
+        objects.remove(choice);
     }
 
     //function to make new lists for sim without fully restarting program

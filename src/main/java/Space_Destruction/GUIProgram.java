@@ -22,7 +22,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
     // map.draw(Graphics g) can render objects
     private ArrayList<backgroundStars> stars; // List of static stars (don't move or get destroyed)
     private Timer timer; // Variable to control timer globally
-    private boolean paused = false; // Variable to track if sim is paused
+    private boolean paused = true; // Variable to track if sim is paused
 
 
     public GUIProgram(DestructionMap map) {
@@ -41,14 +41,14 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         JButton startButton = new JButton("Start"); // Create a Start button
         JButton pauseButton = new JButton("Pause"); //  Create Pause button
-        JButton resumeButton = new JButton("Resume"); // Create Resume button
+//        JButton resumeButton = new JButton("Resume"); // Create Resume button //merged with pause
         //JButton stopButton = new JButton("Stop"); // Maybe add a stop button?
         JButton tickButton = new JButton("Tick"); // Create Tick button to move one frame exactly
 
 
         buttonPanel.add(startButton); // Add buttons to button panel
         buttonPanel.add(pauseButton);
-        buttonPanel.add(resumeButton);
+//        buttonPanel.add(resumeButton); //merged with pause
         buttonPanel.add(tickButton);
 
         frame.add(buttonPanel, BorderLayout.SOUTH); // Place button panel on bottom of border
@@ -69,8 +69,11 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         // Button Actions
         startButton.addActionListener(e -> { // Button to start the program
-            timer.start();
-            paused = false;
+            map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
+            if (paused) {
+                timer.start();
+                paused = false;
+            }
         });
 
         pauseButton.addActionListener(e -> { // Pauses
@@ -122,7 +125,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         });
 
        genStars(); //Generates Stars when simulations starts
-       map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
+//       map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
     }
 
     private void genStars() {
