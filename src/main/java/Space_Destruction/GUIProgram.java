@@ -71,13 +71,14 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         // Restart Button
         restartButton.addActionListener(e -> { // Restart
+            //regenerate stars
+            genStars();
+            //replace solar system
             map.reStart();
             timer.start();
             paused = true;
             pauseButton.setText("Pause");
             started = false;
-            //regenerate stars
-            genStars();
         });
 
         // Button Actions
