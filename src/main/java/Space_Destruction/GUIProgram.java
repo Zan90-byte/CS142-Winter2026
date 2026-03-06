@@ -63,6 +63,12 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         buttonPanel.add(restartButton);
        // speedSlider.setInverted(true);
 
+        // Animation timer
+        Timer timer = new Timer(50, e -> { // Triggers code at fixed interval (50 ms)
+            map.update(); // Advances simulation: expands wave, check obj destruction, update voids
+            repaint(); // Triggers paintComponent(Graphics g) to redraw everything
+        });
+
         // Restart Button
         restartButton.addActionListener(e -> { // Restart
             map.reStart();
@@ -70,12 +76,6 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             paused = true;
             pauseButton.setText("Pause");
 
-        });
-
-        // Animation timer
-        Timer timer = new Timer(50, e -> { // Triggers code at fixed interval (50 ms)
-            map.update(); // Advances simulation: expands wave, check obj destruction, update voids
-            repaint(); // Triggers paintComponent(Graphics g) to redraw everything
         });
 
         // Button Actions
@@ -142,6 +142,8 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 //       map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
     }
 
+    // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+
     private void genStars() {
 
         stars.clear(); //Clears stars before adding new ones
@@ -164,6 +166,8 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         }
     }
+
+    // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 
     @Override
     protected void paintComponent(Graphics g) { // Called every repaint()
