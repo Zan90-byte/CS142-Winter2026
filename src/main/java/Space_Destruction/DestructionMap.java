@@ -232,7 +232,9 @@ public class DestructionMap {
     public void reStart(){
         objects.clear();
         fill();
-        voids.clear();
+        if (!voids.isEmpty()) {
+            voids.clear();
+        }
         //need to call start manually afterward
     }
 
