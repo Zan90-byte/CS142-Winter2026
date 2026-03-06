@@ -33,8 +33,8 @@ public class Planet extends Planetoid { // Inherits all fields and methods from 
     //Chooses a random Planet color between Orange, Green, and Blue
     private Color randomColor(){
         int choice = rand.nextInt(3);
-        if(choice == 0){ return Color.ORANGE;}
-        if(choice == 1){ return Color.GREEN;}
+        if(choice == 0){ return new Color(200,100, 0);}
+        if(choice == 1){ return new Color(0,100, 0);}
         return Color.BLUE;
     }
 }
