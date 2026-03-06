@@ -12,7 +12,7 @@ public class Star extends SpaceObjects { // Inherits all fields from SpaceObject
     public Star(){
         x = 0; // Places Star at center of map (all orbits relative to this (0,0))
         y = 0;
-        radius = 30; // Set radius to 30 pixels
+        radius = 25 + new Random().nextInt(11); // Set radius to 30 pixels
         color = randomColor(); // Sets color to yellow
         voidSize = 100; // Destruction wave set
     }
