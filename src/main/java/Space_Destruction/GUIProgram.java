@@ -75,7 +75,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             timer.start();
             paused = true;
             pauseButton.setText("Pause");
-
+            started = false;
         });
 
         // Button Actions
