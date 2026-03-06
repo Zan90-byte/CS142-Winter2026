@@ -39,10 +39,13 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         // Add buttons for simulation control
         JPanel buttonPanel = new JPanel(); // Panel to actually hold buttons
 
+        JButton startButton = new JButton("Start"); // Create a Start button
         JButton pauseButton = new JButton("Pause"); //  Create Pause button
         JButton resumeButton = new JButton("Resume"); // Create Resume button
         JButton tickButton = new JButton("Tick"); // Create Tick button to move one frame exactly
 
+
+        buttonPanel.add(startButton);
         buttonPanel.add(pauseButton); // Add buttons to button panel
         buttonPanel.add(resumeButton);
         buttonPanel.add(tickButton);
@@ -63,7 +66,10 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             repaint(); // Triggers paintComponent(Graphics g) to redraw everything
         });
 
-        timer.start(); // Begins repeated triggering (ticking) automatically
+        startButton.addActionListener(e -> { // Button to start the program
+            timer.start();
+            paused = false;
+        });
 
         // Button Actions
         pauseButton.addActionListener(e -> { // Pauses
