@@ -56,7 +56,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         frame.add(buttonPanel, BorderLayout.SOUTH); // Place button panel on bottom of border
 
         // add slider (speed slider)
-        JLabel speedLabel = new JLabel("Speed: Fast");
+        JLabel speedLabel = new JLabel("Speed: ");
         JSlider speedSlider = new JSlider(1, 15, 8);
         buttonPanel.add(speedLabel);
         buttonPanel.add(speedSlider);
@@ -124,9 +124,9 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             int scale = speedSlider.getValue();
             //timer.setDelay(delay);
             map.setScale(scale);
-            if (scale <= 6) speedLabel.setText("Speed: Slow");
-            else if(scale <= 13) speedLabel.setText("Speed: Medium");
-            else speedLabel.setText("Speed: Fast");
+//            if (scale <= 6) speedLabel.setText("Speed: Slow");
+//            else if(scale <= 13) speedLabel.setText("Speed: Medium");
+//            else speedLabel.setText("Speed: Fast");
 
         });
 
