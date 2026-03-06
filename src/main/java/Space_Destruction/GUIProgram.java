@@ -23,6 +23,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
     private ArrayList<backgroundStars> stars; // List of static stars (don't move or get destroyed)
     private Timer timer; // Variable to control timer globally
     private boolean paused = true; // Variable to track if sim is paused
+    private boolean started = false;
 
 
     public GUIProgram(DestructionMap map) {
@@ -44,8 +45,9 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 //        JButton resumeButton = new JButton("Resume"); // Create Resume button //merged with pause
         //JButton stopButton = new JButton("Stop"); // Maybe add a stop button?
         JButton tickButton = new JButton("Tick"); // Create Tick button to move one frame exactly
+        JButton restartButton = new JButton("Restart");
 
-
+        buttonPanel.add(restartButton);
         buttonPanel.add(startButton); // Add buttons to button panel
         buttonPanel.add(pauseButton);
 //        buttonPanel.add(resumeButton); //merged with pause
@@ -58,8 +60,17 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         JSlider speedSlider = new JSlider(1, 15, 8);
         buttonPanel.add(speedLabel);
         buttonPanel.add(speedSlider);
+        buttonPanel.add(restartButton);
        // speedSlider.setInverted(true);
 
+        // Restart Button
+        restartButton.addActionListener(e -> { // Restart
+            map.reStart();
+            timer.start();
+            paused = true;
+            pauseButton.setText("Pause");
+
+        });
 
         // Animation timer
         Timer timer = new Timer(50, e -> { // Triggers code at fixed interval (50 ms)
@@ -69,6 +80,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         // Button Actions
         startButton.addActionListener(e -> { // Button to start the program
+            started = true;
             map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
             if (paused) {
                 timer.start();
