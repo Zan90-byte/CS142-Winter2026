@@ -76,6 +76,8 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             paused = true;
             pauseButton.setText("Pause");
             started = false;
+            //regenerate stars
+            genStars();
         });
 
         // Button Actions
