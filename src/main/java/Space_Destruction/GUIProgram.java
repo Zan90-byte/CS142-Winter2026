@@ -55,7 +55,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         // add slider (speed slider)
         JLabel speedLabel = new JLabel("Speed: Fast");
-        JSlider speedSlider = new JSlider(10, 500, 50);
+        JSlider speedSlider = new JSlider(1, 15, 8);
         buttonPanel.add(speedLabel);
         buttonPanel.add(speedSlider);
        // speedSlider.setInverted(true);
