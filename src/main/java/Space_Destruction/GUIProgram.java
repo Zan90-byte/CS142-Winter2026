@@ -80,11 +80,15 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         // Button Actions
         startButton.addActionListener(e -> { // Button to start the program
-            started = true;
-            map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
-            if (paused) {
-                timer.start();
-                paused = false;
+            if (started){
+                map.start();
+            } else {
+                started = true;
+                map.start(); // Calls start on DestructionMap, initializes first wave at random planetoid
+                if (paused) {
+                    timer.start();
+                    paused = false;
+                }
             }
         });
 
