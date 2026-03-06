@@ -12,13 +12,19 @@ public class DestructionMap {
     private int scale;
     private List<SpaceObjects> objects;
     private List<SpaceVoid> voids;
+    int numPlanets;
+    int asteroidFields;
+    int numPlanetoids;
 
     //constructor
-    public DestructionMap(int scale, int numPlanets, int asteroidFields, int planetoids){
+    public DestructionMap(int scale, int numPlanets, int asteroidFields, int numPlanetoids){
         this.scale = scale;
         objects = new ArrayList<SpaceObjects>();
         voids = new ArrayList<SpaceVoid>();
-        fill(numPlanets, asteroidFields, planetoids);
+        this.numPlanets = numPlanets;
+        this.asteroidFields = asteroidFields;
+        this.numPlanetoids = numPlanetoids;
+        fill();
     }
 
     //alternate constructor to not break anything while working on new one
@@ -27,7 +33,7 @@ public class DestructionMap {
     }
 
     //fills lists
-    private void fill(int numPlanets, int asteroidFields, int numPlanetoids){
+    private void fill(){
         int p = 0;
         int a = 0;
         int pO = 0;
@@ -214,6 +220,14 @@ public class DestructionMap {
             voids.add(new SpaceVoid(x, y, maxRad));
             objects.remove(choice);
 //        }
+    }
+
+    //function to make new lists for sim without fully restarting program
+    public void reStart(){
+        objects.clear();
+        fill();
+        voids.clear();
+        //need to call start manually afterward
     }
 
     // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
