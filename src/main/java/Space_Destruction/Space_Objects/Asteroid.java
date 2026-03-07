@@ -18,7 +18,7 @@ public class Asteroid extends Planetoid{ // Inherits all fields from SpaceObject
     public Asteroid(int x, int y, int orbitRadius){
         super(x, y,
                 5 + rand.nextInt(3),  // Radius between 5 and 7 pixels
-                25 + rand.nextInt(26), // Destruction wave effect 25 to 50 pixels
+                35 + rand.nextInt(16), // Destruction wave effect 35 to 50 pixels
                 orbitRadius); // Distance from star becomes orbitRadius parameter
 
         this.color = randomColor(); // Override default color with random color

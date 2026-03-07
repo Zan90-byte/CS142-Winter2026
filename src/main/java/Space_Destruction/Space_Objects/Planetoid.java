@@ -19,7 +19,7 @@ public class Planetoid extends SpaceObjects {
         if (rand.nextBoolean()) {x *= -1;} // Random quadrant assignment
         if (rand.nextBoolean()) {y *= -1;} // Flips signs randomly
         radius = 7 + rand.nextInt(4); // Assigns size between 7 and 10 for Planetoid
-        voidSize = 40 + rand.nextInt(31); // Sets destruction wave to 40-70
+        voidSize = 55 + rand.nextInt(16); // Sets destruction wave to 55-70
         distanceFromStar = orbit; // Stores distance from star
         color = randomColor(); // Chooses a semi-transparent grey/brown/dark grey color
     }
