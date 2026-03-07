@@ -14,7 +14,7 @@ public class Star extends SpaceObjects { // Inherits all fields from SpaceObject
         y = 0;
         radius = 20 + new Random().nextInt(11); // Set radius to 30 pixels
         color = randomColor(); // Sets color to yellow
-        voidSize = 100; // Destruction wave set
+        voidSize = 100 + new Random().nextInt(51); // Destruction wave set 100 - 150
     }
     public String toString(){
         return "*";
