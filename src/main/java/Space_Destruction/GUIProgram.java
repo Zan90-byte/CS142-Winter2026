@@ -92,7 +92,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         endButton.setForeground(Color.WHITE);
         endButton.setAlignmentX(CENTER_ALIGNMENT);
         endButton.setVisible(false);
-        infoPanel.add(endButton);
+        buttonPanel.add(endButton);
         endButton.addActionListener(e -> System.exit(0));
 
         frame.add(infoPanel, BorderLayout.NORTH);
