@@ -55,18 +55,44 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         frame.add(buttonPanel, BorderLayout.SOUTH); // Place button panel on bottom of border
 
+        // Info panel on the right side - displays live counts of remaining space objects
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setBackground(Color.BLACK);
+        infoPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+
+        JLabel planetLabel    = new JLabel("Planets: -");
+        JLabel asteroidLabel  = new JLabel("Asteroids: -");
+        JLabel planetoidLabel = new JLabel("Planetoids: -");
+
+        planetLabel.setForeground(Color.WHITE);
+        asteroidLabel.setForeground(Color.WHITE);
+        planetoidLabel.setForeground(Color.WHITE);
+
+        planetLabel.setAlignmentX(CENTER_ALIGNMENT);
+        asteroidLabel.setAlignmentX(CENTER_ALIGNMENT);
+        planetoidLabel.setAlignmentX(CENTER_ALIGNMENT);
+
+        infoPanel.add(planetLabel);
+        infoPanel.add(asteroidLabel);
+        infoPanel.add(planetoidLabel);
+
+        frame.add(infoPanel, BorderLayout.EAST);
+
         // add slider (speed slider)
         JLabel speedLabel = new JLabel("Speed: ");
-        JSlider speedSlider = new JSlider(1, 15, 8);
+        JSlider speedSlider = new JSlider(50, 1000, 200);
         buttonPanel.add(speedLabel);
         buttonPanel.add(speedSlider);
-        buttonPanel.add(restartButton);
-       // speedSlider.setInverted(true);
+        speedSlider.setInverted(true);
 
         // Animation timer
-        Timer timer = new Timer(50, e -> { // Triggers code at fixed interval (50 ms)
+        this.timer = new Timer(50, e -> { // Triggers code at fixed interval (50 ms)
             map.update(); // Advances simulation: expands wave, check obj destruction, update voids
             repaint(); // Triggers paintComponent(Graphics g) to redraw everything
+            planetLabel.setText("Planets: "     + map.countPlanets());
+            asteroidLabel.setText("Asteroids: " + map.countAsteroids());
+            planetoidLabel.setText("Planetoids: "+ map.countPlanetoids());
         });
 
         // Restart Button
@@ -125,11 +151,10 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         speedSlider.addChangeListener(e -> {
             // get current value and then change time interval
             int scale = speedSlider.getValue();
-            //timer.setDelay(delay);
-            map.setScale(scale);
-//            if (scale <= 6) speedLabel.setText("Speed: Slow");
-//            else if(scale <= 13) speedLabel.setText("Speed: Medium");
-//            else speedLabel.setText("Speed: Fast");
+            timer.setDelay(scale);
+            if (scale <= 200) speedLabel.setText("Speed: Fast");
+            else if (scale <= 600) speedLabel.setText("Speed: Medium");
+            else speedLabel.setText("Speed: Slow");
 
         });
 

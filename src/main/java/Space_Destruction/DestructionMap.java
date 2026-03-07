@@ -154,6 +154,36 @@ public class DestructionMap {
 
     // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 
+
+    // counting the number of objects
+    
+    public int countPlanets() {
+        int count = 0;
+        for (int i = 0; i < objects.size(); i++)
+            if (objects.get(i) instanceof Planet) count++;
+        return count;
+    }
+
+    public int countAsteroids(){
+        int count = 0; 
+        for (int i = 0; i < objects.size(); i++)
+            if (objects.get(i) instanceof Asteroid) count++;
+        return count;
+    }
+
+    public int countPlanetoids(){
+        int count = 0; 
+        for (int i = 0; i < objects.size(); i++)
+            if (objects.get(i) instanceof Planetoid) count++;
+        return count;
+    }
+
+    // public boolean isOver(){
+    //     return voids.isEmpty(); 
+    // }
+
+    // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+
     //update voids than use that to destroy space objects
     public void update(){
 
@@ -268,5 +298,7 @@ public class DestructionMap {
             v.draw(g);
         }
     }
+
+
 
 }
