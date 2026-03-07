@@ -82,7 +82,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         infoPanel.add(planetoidLabel);
         infoPanel.add(simStatusLabel);
 
-        frame.add(infoPanel, BorderLayout.EAST);
+        frame.add(infoPanel, BorderLayout.NORTH);
 
         // add slider (speed slider)
         JLabel speedLabel = new JLabel("Speed: ");
@@ -119,7 +119,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             startButton.setEnabled(true);
             pauseButton.setEnabled(true);
             tickButton.setEnabled(true);
-            timer.stop();
+            timer.start();
             paused = true;
             pauseButton.setText("Pause");
             started = false;
