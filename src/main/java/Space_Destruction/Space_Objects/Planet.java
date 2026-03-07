@@ -17,7 +17,7 @@ public class Planet extends Planetoid { // Inherits all fields and methods from 
         //Costructor
         x = new Random().nextInt(orbit + 1);
         y = (int) Math.sqrt(((orbit * orbit) - (x * x)) );
-        radius = 15 + rand.nextInt(6); // Planet radius between 15 and 20
+        radius = 10 + rand.nextInt(6); // Planet radius between 10 and 15
         voidSize = 50 + rand.nextInt(26); // Size of wave when destroyed between 50 and 70
 
         //super(x, y, radius, voidSize, orbit);

@@ -41,7 +41,7 @@ public class DestructionMap {
         Random r = new Random();
         //objects(0) = the star
         objects.add(new Star());
-        int orbit = 40 + objects.get(0).getR();
+        int orbit = objects.get(0).getR() + 50 + r.nextInt(16);
         //fil rest of objects list with planets and asteroids fields
         while(a < asteroidFields || p < numPlanets || pO < numPlanetoids){
 
@@ -105,7 +105,7 @@ public class DestructionMap {
                 }
             }
             //increment orbit by 20-40 + radius of last object
-            orbit += objects.get(objects.size()-1).getR() + 20 + r.nextInt(21);
+            orbit += objects.get(objects.size()-1).getR() + 15 + r.nextInt(21);
             //orbit += 20 + new Random().nextInt(6);
 //            orbit += 60 + new Random().nextInt(20); // overlapping objects in sim
         }

@@ -18,7 +18,7 @@ public class Planetoid extends SpaceObjects {
         y = (int) Math.sqrt((orbit * orbit) - (x * x)); // Circle eqt to calculate y
         if (rand.nextBoolean()) {x *= -1;} // Random quadrant assignment
         if (rand.nextBoolean()) {y *= -1;} // Flips signs randomly
-        radius = 10 + rand.nextInt(6); // Assigns size between 10 and 15 for Planetoid
+        radius = 7 + rand.nextInt(4); // Assigns size between 7 and 10 for Planetoid
         voidSize = 40 + rand.nextInt(31); // Sets destruction wave to 40-70
         distanceFromStar = orbit; // Stores distance from star
         color = randomColor(); // Chooses a semi-transparent grey/brown/dark grey color
@@ -52,9 +52,9 @@ public class Planetoid extends SpaceObjects {
     // Returns same grey/brown palette as asteroids but alpha = 150 for reduced opacity
     private Color randomColor() {
         int choice = rand.nextInt(3);
-        if (choice == 0) return new Color(128, 128, 128, 150);  // grey
-        if (choice == 1) return new Color(101, 67, 37, 150);    // brown
-        return new Color(64, 64, 64, 150);                    // dark grey
+        if (choice == 0) return new Color(228, 228, 228, 150);  // grey
+        if (choice == 1) return new Color(151, 117, 77, 150);    // brown
+        return new Color(164, 164, 164, 150);                    // dark grey
     }
 
     @Override
