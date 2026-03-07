@@ -86,6 +86,15 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         infoPanel.add(simStatusLabel);
 //        infoPanel.add(solarSystemName); // ----- ----- -----
 
+        // End button - only visible when chain reaction is complete
+        JButton endButton = new JButton("End");
+        endButton.setBackground(Color.RED);
+        endButton.setForeground(Color.WHITE);
+        endButton.setAlignmentX(CENTER_ALIGNMENT);
+        endButton.setVisible(false);
+        infoPanel.add(endButton);
+        endButton.addActionListener(e -> System.exit(0));
+
         frame.add(infoPanel, BorderLayout.NORTH);
 
         // add slider (speed slider)
@@ -110,6 +119,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
                 startButton.setEnabled(false);
                 pauseButton.setEnabled(false);
                 tickButton.setEnabled(false);
+                endButton.setVisible(true);
             }
         });
 
@@ -123,6 +133,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             startButton.setEnabled(true);
             pauseButton.setEnabled(true);
             tickButton.setEnabled(true);
+            endButton.setVisible(false);
             timer.start();  //needs to be started or does not display new solar system
             paused = true;
             pauseButton.setText("Pause");
