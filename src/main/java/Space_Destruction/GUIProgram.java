@@ -61,10 +61,13 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         infoPanel.setBackground(Color.BLACK);
         infoPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 
+        // count lables and status
         JLabel planetLabel    = new JLabel("Planets: -");
         JLabel asteroidLabel  = new JLabel("Asteroids: -");
         JLabel planetoidLabel = new JLabel("Planetoids: -");
+        JLabel simStatusLabel = new JLabel(" ");
 
+        simStatusLabel.setForeground(Color.RED);
         planetLabel.setForeground(Color.WHITE);
         asteroidLabel.setForeground(Color.WHITE);
         planetoidLabel.setForeground(Color.WHITE);
@@ -72,10 +75,12 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         planetLabel.setAlignmentX(CENTER_ALIGNMENT);
         asteroidLabel.setAlignmentX(CENTER_ALIGNMENT);
         planetoidLabel.setAlignmentX(CENTER_ALIGNMENT);
+        simStatusLabel.setAlignmentX(CENTER_ALIGNMENT);
 
         infoPanel.add(planetLabel);
         infoPanel.add(asteroidLabel);
         infoPanel.add(planetoidLabel);
+        infoPanel.add(simStatusLabel);
 
         frame.add(infoPanel, BorderLayout.EAST);
 
@@ -93,6 +98,15 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             planetLabel.setText("Planets: "     + map.countPlanets());
             asteroidLabel.setText("Asteroids: " + map.countAsteroids());
             planetoidLabel.setText("Planetoids: "+ map.countPlanetoids());
+
+            // only reset button works after sim is over
+            if (map.isOver()) {
+                timer.stop();
+                simStatusLabel.setText("\nChain Reaction Complete");
+                startButton.setEnabled(false);
+                pauseButton.setEnabled(false);
+                tickButton.setEnabled(false);
+            }
         });
 
         // Restart Button
@@ -101,7 +115,11 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             genStars();
             //replace solar system
             map.reStart();
-            timer.start();
+            simStatusLabel.setText(" ");
+            startButton.setEnabled(true);
+            pauseButton.setEnabled(true);
+            tickButton.setEnabled(true);
+            timer.stop();
             paused = true;
             pauseButton.setText("Pause");
             started = false;

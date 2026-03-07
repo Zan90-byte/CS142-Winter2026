@@ -15,6 +15,7 @@ public class DestructionMap {
     int numPlanets;
     int asteroidFields;
     int numPlanetoids;
+    private boolean started = false;
 
     //constructor
     public DestructionMap(int scale, int numPlanets, int asteroidFields, int numPlanetoids){
@@ -178,9 +179,9 @@ public class DestructionMap {
         return count;
     }
 
-    // public boolean isOver(){
-    //     return voids.isEmpty(); 
-    // }
+     public boolean isOver(){
+         return started && voids.isEmpty();
+     }
 
     // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 
@@ -240,6 +241,7 @@ public class DestructionMap {
     // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 
     public void start(){
+        started = true;
         //to block issues with multiple voids being initialized
         int choice;
         if (objects.size() > 1) {
@@ -261,6 +263,7 @@ public class DestructionMap {
     //function to make new lists for sim without fully restarting program
     public void reStart(){
         objects.clear();
+        started = false;
         fill();
         if (!voids.isEmpty()) {
             voids.clear();
