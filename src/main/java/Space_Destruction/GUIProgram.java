@@ -66,21 +66,25 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         JLabel asteroidLabel  = new JLabel("Asteroids: -");
         JLabel planetoidLabel = new JLabel("Planetoids: -");
         JLabel simStatusLabel = new JLabel(" ");
+//        JLabel solarSystemName = new JLabel("NAME HERE");   // uncomment these when name generator is complete
 
         simStatusLabel.setForeground(Color.RED);
         planetLabel.setForeground(Color.WHITE);
         asteroidLabel.setForeground(Color.WHITE);
         planetoidLabel.setForeground(Color.WHITE);
+//        solarSystemName.setForeground(Color.WHITE);   // ----- ----- -----
 
         planetLabel.setAlignmentX(CENTER_ALIGNMENT);
         asteroidLabel.setAlignmentX(CENTER_ALIGNMENT);
         planetoidLabel.setAlignmentX(CENTER_ALIGNMENT);
         simStatusLabel.setAlignmentX(CENTER_ALIGNMENT);
+//        solarSystemName.setAlignmentX(CENTER_ALIGNMENT);  // ----- ----- -----
 
         infoPanel.add(planetLabel);
         infoPanel.add(asteroidLabel);
         infoPanel.add(planetoidLabel);
         infoPanel.add(simStatusLabel);
+//        infoPanel.add(solarSystemName); // ----- ----- -----
 
         frame.add(infoPanel, BorderLayout.NORTH);
 
@@ -119,10 +123,12 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             startButton.setEnabled(true);
             pauseButton.setEnabled(true);
             tickButton.setEnabled(true);
-            timer.start();
+            timer.start();  //needs to be started or does not display new solar system
             paused = true;
             pauseButton.setText("Pause");
             started = false;
+            //update solar system name here
+//            solarSystemName.setText(//randomName.generate()));    // ----- ----- ----- -----
         });
 
         // Button Actions
