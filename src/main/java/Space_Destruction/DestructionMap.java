@@ -175,7 +175,7 @@ public class DestructionMap {
     public int countPlanetoids(){
         int count = 0; 
         for (int i = 0; i < objects.size(); i++)
-            if (!(objects.get(i) instanceof Planet) || !(objects.get(i) instanceof Asteroid)) count++;
+            if (!(objects.get(i) instanceof Planet) && !(objects.get(i) instanceof Asteroid) && !(objects.get(i) instanceof Star)) count++;
         return count;
     }
 
