@@ -62,9 +62,9 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         infoPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 
         // count lables and status
-        JLabel planetLabel    = new JLabel("Planets: -");
-        JLabel asteroidLabel  = new JLabel("Asteroids: -");
-        JLabel planetoidLabel = new JLabel("Planetoids: -");
+        JLabel planetLabel    = new JLabel("Planets: " + map.countPlanets());
+        JLabel asteroidLabel  = new JLabel("Asteroids: " + map.countAsteroids());
+        JLabel planetoidLabel = new JLabel("Planetoids: " + map.countPlanetoids());
         JLabel simStatusLabel = new JLabel(" ");
 //        JLabel solarSystemName = new JLabel("NAME HERE");   // uncomment these when name generator is complete
 
@@ -110,7 +110,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             repaint(); // Triggers paintComponent(Graphics g) to redraw everything
             planetLabel.setText("Planets: "     + map.countPlanets());
             asteroidLabel.setText("Asteroids: " + map.countAsteroids());
-            planetoidLabel.setText("Planetoids: "+ map.countPlanetoids());
+            planetoidLabel.setText("Planetoids: " + map.countPlanetoids());
 
             // only reset button works after sim is over
             if (map.isOver()) {
