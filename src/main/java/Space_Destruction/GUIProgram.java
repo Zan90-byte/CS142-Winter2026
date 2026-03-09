@@ -116,7 +116,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             planetoidLabel.setText("Planetoids: " + map.countPlanetoids());
 
             // only reset button works after sim is over
-            if (map.isOver()) {
+            if (map.isOver()) {     // end button stuff
                 timer.stop();
                 simStatusLabel.setText("\nChain Reaction Complete");
                 startButton.setEnabled(false);
@@ -157,6 +157,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
                     paused = false;
                 }
             }
+            startButton.setEnabled(false);
         });
 
         pauseButton.addActionListener(e -> { // Pauses
