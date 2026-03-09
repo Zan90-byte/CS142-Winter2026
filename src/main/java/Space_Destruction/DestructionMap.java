@@ -113,7 +113,7 @@ public class DestructionMap {
 
     //makes a field of asteroids around a specific orbit (radius around sun)
     private void makeAstField(int orbit, int total){
-        int numAsteroids = new Random().nextInt(3) + 1;
+        int numAsteroids = new Random().nextInt(7) + 1;
         List<Asteroid> field = new ArrayList<Asteroid>(numAsteroids);
 
         for (int i = 0; i < numAsteroids; i++){
