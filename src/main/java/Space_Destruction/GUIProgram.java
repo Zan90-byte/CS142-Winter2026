@@ -66,25 +66,25 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         JLabel asteroidLabel  = new JLabel("Asteroids: " + map.countAsteroids());
         JLabel planetoidLabel = new JLabel("Planetoids: " + map.countPlanetoids());
         JLabel simStatusLabel = new JLabel(" ");
-//        JLabel solarSystemName = new JLabel("NAME HERE");   // uncomment these when name generator is complete
+        JLabel solarSystemName = new JLabel(solarName.genName());   // uncomment these when name generator is complete
 
         simStatusLabel.setForeground(Color.RED);
         planetLabel.setForeground(Color.WHITE);
         asteroidLabel.setForeground(Color.WHITE);
         planetoidLabel.setForeground(Color.WHITE);
-//        solarSystemName.setForeground(Color.WHITE);   // ----- ----- -----
+        solarSystemName.setForeground(Color.WHITE);   // ----- ----- -----
 
         planetLabel.setAlignmentX(CENTER_ALIGNMENT);
         asteroidLabel.setAlignmentX(CENTER_ALIGNMENT);
         planetoidLabel.setAlignmentX(CENTER_ALIGNMENT);
         simStatusLabel.setAlignmentX(CENTER_ALIGNMENT);
-//        solarSystemName.setAlignmentX(CENTER_ALIGNMENT);  // ----- ----- -----
+        solarSystemName.setAlignmentX(CENTER_ALIGNMENT);  // ----- ----- -----
 
         infoPanel.add(planetLabel);
         infoPanel.add(asteroidLabel);
         infoPanel.add(planetoidLabel);
         infoPanel.add(simStatusLabel);
-//        infoPanel.add(solarSystemName); // ----- ----- -----
+        infoPanel.add(solarSystemName); // ----- ----- -----
 
         // End button - only visible when chain reaction is complete
         JButton endButton = new JButton("End");
@@ -139,7 +139,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             pauseButton.setText("Pause");
             started = false;
             //update solar system name here
-//            solarSystemName.setText(//randomName.generate()));    // ----- ----- ----- -----
+            solarSystemName.setText(solarName.genName());    // ----- ----- ----- -----
         });
 
         // Button Actions

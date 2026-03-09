@@ -2,11 +2,12 @@ package Space_Destruction;
 import java.util.Random;
 
 public class solarName {
-    public String [] sunName = {"Alpha", "Laika" , "Atlas" , "Ares" , "Polaris" , "Ursa", "Kepler"};
-    public Random rand = new Random();
-    public String name;
 
-    public void genName(){
+
+    public static String genName(){
+        String [] sunName = {"Alpha", "Laika" , "Atlas" , "Ares" , "Polaris" , "Ursa", "Kepler"};
+        Random rand = new Random();
+        String name;
         int p1 = rand.nextInt(sunName.length);
         int p2 = rand.nextInt(4)+2;
         String cord = "";
@@ -14,10 +15,11 @@ public class solarName {
             cord += ""+rand.nextInt(9);
         }
         name = sunName[p1]+" - "+cord;
-    }
-    public String toString(){
         return name;
     }
+//    public String toString(){
+//        return name;
+//    }
 
 
 }
