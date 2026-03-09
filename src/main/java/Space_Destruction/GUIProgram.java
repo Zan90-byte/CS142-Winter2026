@@ -114,6 +114,9 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
             planetLabel.setText("Planets: "     + map.countPlanets());
             asteroidLabel.setText("Asteroids: " + map.countAsteroids());
             planetoidLabel.setText("Planetoids: " + map.countPlanetoids());
+            if (!map.getObjects().isEmpty() && !(map.getObjects().get(0) instanceof Star)){
+                solarSystemName.setText(" ");
+            }
 
             // only reset button works after sim is over
             if (map.isOver()) {     // end button stuff
