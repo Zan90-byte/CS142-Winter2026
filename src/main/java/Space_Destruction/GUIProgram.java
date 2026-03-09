@@ -99,10 +99,13 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         // add slider (speed slider)
         JLabel speedLabel = new JLabel("Speed: ");
-        JSlider speedSlider = new JSlider(50, 1000, 200);
+        JSlider speedSlider = new JSlider(1, 7, 4);
         buttonPanel.add(speedLabel);
         buttonPanel.add(speedSlider);
-        speedSlider.setInverted(true);
+//        speedSlider.setInverted(true);
+
+        //to initialize the speed of simulation properly
+        map.setScale(speedSlider.getValue());
 
         // Animation timer
         this.timer = new Timer(50, e -> { // Triggers code at fixed interval (50 ms)
@@ -186,10 +189,11 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         speedSlider.addChangeListener(e -> {
             // get current value and then change time interval
             int scale = speedSlider.getValue();
-            timer.setDelay(scale);
-            if (scale <= 200) speedLabel.setText("Speed: Fast");
-            else if (scale <= 600) speedLabel.setText("Speed: Medium");
-            else speedLabel.setText("Speed: Slow");
+            map.setScale(scale);
+//            timer.setDelay(scale);    //don't un-comment this
+//            if (scale <= 200) speedLabel.setText("Speed: Fast");
+//            else if (scale <= 600) speedLabel.setText("Speed: Medium");
+//            else speedLabel.setText("Speed: Slow");
 
         });
 
