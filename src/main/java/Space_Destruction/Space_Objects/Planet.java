@@ -11,7 +11,7 @@ public class Planet extends Planetoid { // Inherits all fields and methods from 
 
     private Random rand = new Random();
 
-    // Places Planet on ircular orbit at "orbit" units from star
+    // Places Planet on circular orbit at "orbit" units from star
     public Planet(int orbit) { // Orbit determines distance from the central star
 
         //Costructor

@@ -227,7 +227,7 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
 
         // Randomly generates 1 star per 50x50 px for background
         int numStars = (getWidth() * getHeight()) / 2500; //Generates 1 star per 50x50 px
-        for (int i = 0; i < numStars; i++) { //instead 200 stars used numStars to fill screen
+        for (int i = 0; i < numStars; i++) { // Use calculated star count so density scales with screen size
             stars.add(new backgroundStars(
                     rand.nextInt(width), // Utilized width to randomly generate stars
                     rand.nextInt(height), // Utilized height to randomly generate stars
@@ -257,6 +257,6 @@ public class GUIProgram extends JPanel { // Allows GUIProgram to draw on JFrame
         // Necessary because we place all objects relative to center star
 
         map.draw(g2); // Calls DestructionMap.draw which draws each object and each SpaceVoid
-        // Effect is star centrally placed, planets/asteroids around it, shockwave moving outwards
+        // Effect is star centrally placed, planets/asteroids around it, shock wave moving outwards
     }
 }
